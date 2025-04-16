@@ -1,103 +1,205 @@
-import Image from "next/image";
+import { Locale } from '@/lib/i18n';
+import Hero from "@/components/blocks/Hero";
+import Features from "@/components/blocks/Features";
+import Testimonials from "@/components/blocks/Testimonials";
+import CTA from "@/components/blocks/CTA";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  // В будущем это будет получено из Strapi API
+  const locale = 'en' as Locale;
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  // Данные для Hero секции
+  const heroData = {
+    title: "Turn Vibes into Videos – Instantly.",
+    subtitle: "AI-powered filmmaking",
+    description: "AI filmmaking for creators, businesses, musicians, and teams.",
+    primaryCta: {
+      text: "Start Creating for Free",
+      link: "/signup"
+    },
+    secondaryCta: {
+      text: "Watch a Demo",
+      link: "/demo"
+    },
+    image: {
+      src: "/hero-image.svg",
+      alt: "SuperDuperAI filmmaking platform illustration",
+      width: 500,
+      height: 400
+    },
+    gradient: true,
+    align: "left" as const,
+    contrast: "light" as const
+  };
+
+  // Данные для Features секции (How It Works)
+  const featuresData = {
+    title: "Direct your video in 3 easy steps",
+    subtitle: "How It Works",
+    description: "AI agents handle the rest, allowing you to focus on your creative vision.",
+    layout: "grid" as const,
+    background: "brand" as const,
+    features: [
+      {
+        title: "Define Your Vision",
+        description: "Describe your idea, vibe, and storyline to set the creative direction.",
+        icon: "/icons/lightbulb.svg"
+      },
+      {
+        title: "AI Generates the Scene",
+        description: "Multi-agent AI creates the script, scene, and characters according to your vision.",
+        icon: "/icons/robot.svg"
+      },
+      {
+        title: "Refine and Finalize",
+        description: "Adjust the style, text, and export to your preferred format.",
+        icon: "/icons/sliders.svg"
+      }
+    ]
+  };
+
+  // Данные для Use Cases секции
+  const useCasesData = {
+    title: "Made for Creators, Businesses, Musicians & Teams",
+    subtitle: "Use Cases",
+    description: "SuperDuperAI helps diverse creators bring their visions to life.",
+    layout: "alternating" as const,
+    features: [
+      {
+        title: "Creators & Influencers",
+        description: "Create more content, grow your audience, and increase your revenue with AI-powered video tools.",
+        image: {
+          src: "/images/creators.jpg",
+          alt: "Creators using SuperDuperAI"
+        }
+      },
+      {
+        title: "Small Businesses",
+        description: "Create professional video ads without agencies or expensive production costs.",
+        image: {
+          src: "/images/business.jpg",
+          alt: "Small business using SuperDuperAI"
+        }
+      },
+      {
+        title: "Musicians & Artists",
+        description: "Create music videos and visuals that match your track's vibe, with no budget constraints.",
+        image: {
+          src: "/images/education.jpg",
+          alt: "Musicians using SuperDuperAI"
+        }
+      },
+      {
+        title: "Agencies & Teams",
+        description: "Rapid prototyping and collaborative work on client projects.",
+        image: {
+          src: "/images/healthcare.jpg",
+          alt: "Agency teams using SuperDuperAI"
+        }
+      }
+    ]
+  };
+
+  // Данные для Features секции (What Makes SuperDuperAI Super)
+  const superFeaturesData = {
+    title: "What Makes SuperDuperAI Super",
+    subtitle: "Features",
+    description: "Our cutting-edge AI technology empowers you to create professional videos easily.",
+    columns: 3 as const,
+    features: [
+      {
+        title: "Custom Characters with AI Memory",
+        description: "Create your own AI actor database with personalized LoRA models."
+      },
+      {
+        title: "Cinematic Camera Controls",
+        description: "Pans, zooms, bullet-time, and more without an actual camera."
+      },
+      {
+        title: "Multi-Agent AI Workflow",
+        description: "Each agent specializes in a specific task for optimal results."
+      },
+      {
+        title: "Fast & Efficient",
+        description: "Go from idea to video in minutes, not weeks."
+      },
+      {
+        title: "Cost Saving",
+        description: "Cinematography-quality results at a fraction of the cost."
+      },
+      {
+        title: "Easy Editing & Integration",
+        description: "Storyboard, drag-drop interface, and export to TikTok, YouTube, and more."
+      }
+    ]
+  };
+
+  // Данные для Testimonials секции
+  const testimonialsData = {
+    title: "What Our Users Say",
+    subtitle: "Testimonials",
+    description: "Join thousands of creators who love SuperDuperAI.",
+    background: "light" as const,
+    testimonials: [
+      {
+        quote: "We saved weeks. Now we scale faster.",
+        author: {
+          name: "Alex J.",
+          title: "Creative Director",
+          company: "Marketing Agency",
+          avatar: "/avatars/alex.jpg"
+        },
+        rating: 5 as const
+      },
+      {
+        quote: "My music video, no budget, huge vibe.",
+        author: {
+          name: "Jasmine K.",
+          title: "Indie Musician",
+          avatar: "/avatars/jasmine.jpg"
+        },
+        rating: 5 as const
+      },
+      {
+        quote: "Twice the content. More subs.",
+        author: {
+          name: "Marco P.",
+          title: "YouTuber",
+          avatar: "/avatars/marco.jpg"
+        },
+        rating: 4 as const
+      }
+    ]
+  };
+
+  // Данные для CTA секции
+  const ctaData = {
+    title: "Ready to create your next video sensation?",
+    description: "Join SuperDuperAI and start creating amazing videos today. No credit card required.",
+    primaryButton: {
+      text: "Start Creating for Free",
+      link: "/signup"
+    },
+    background: "gradient" as const,
+    layout: "centered" as const
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header locale={locale} />
+      
+      <main className="flex-grow">
+        <Hero {...heroData} />
+        <Features {...featuresData} />
+        <Features {...useCasesData} />
+        <Features {...superFeaturesData} />
+        <Testimonials {...testimonialsData} />
+        <CTA {...ctaData} />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      
+      <Footer />
     </div>
   );
 }

@@ -6,7 +6,13 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://superduperai.co';
 
 export async function GET() {
   // Get all landing page slugs
-  const landingSlugs = await getAllLandingPageSlugs();
+  let landingSlugs: string[] = [];
+  try {
+    landingSlugs = await getAllLandingPageSlugs();
+  } catch (error) {
+    console.warn('Error fetching landing page slugs for sitemap:', error);
+    // Continue with empty array
+  }
   
   // Create sitemap XML
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
