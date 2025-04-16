@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
 
 // Define CTA section variants using class-variance-authority
 const ctaVariants = cva(
@@ -88,7 +90,7 @@ export default function CTA({
   // For variants with dark backgrounds, adjust the button styles
   const isDarkBg = background === 'dark' || background === 'primary' || background === 'gradient';
   
-  const primaryButtonVariant = isDarkBg ? 'secondary' : 'primary';
+  const primaryButtonVariant = isDarkBg ? 'secondary' : 'default';
   const secondaryButtonVariant = isDarkBg ? 'outline' : 'outline';
   
   // Different layouts
@@ -103,23 +105,25 @@ export default function CTA({
         
         <div className="flex flex-wrap gap-4 pt-2" data-testid="cta-buttons">
           {primaryButton && (
-            <Link 
-              href={primaryButton.link} 
-              className={buttonVariants({ variant: primaryButtonVariant, size: 'lg' })}
-              data-testid="cta-primary-button"
-            >
-              {primaryButton.text}
-            </Link>
+            <Button asChild size="lg" variant={primaryButtonVariant}>
+              <Link 
+                href={primaryButton.link}
+                data-testid="cta-primary-button"
+              >
+                {primaryButton.text}
+              </Link>
+            </Button>
           )}
           
           {secondaryButton && (
-            <Link 
-              href={secondaryButton.link} 
-              className={buttonVariants({ variant: secondaryButtonVariant, size: 'lg' })}
-              data-testid="cta-secondary-button"
-            >
-              {secondaryButton.text}
-            </Link>
+            <Button asChild size="lg" variant={secondaryButtonVariant}>
+              <Link 
+                href={secondaryButton.link}
+                data-testid="cta-secondary-button"
+              >
+                {secondaryButton.text}
+              </Link>
+            </Button>
           )}
         </div>
       </div>
@@ -131,7 +135,7 @@ export default function CTA({
               src={image.src}
               alt={image.alt}
               fill
-              className={`object-contain ${rounded ? 'rounded-lg overflow-hidden' : ''}`}
+              className={cn("object-contain", rounded && "rounded-lg overflow-hidden")}
             />
           </div>
         </div>
@@ -149,23 +153,25 @@ export default function CTA({
       
       <div className="flex flex-wrap gap-4" data-testid="cta-buttons">
         {primaryButton && (
-          <Link 
-            href={primaryButton.link} 
-            className={buttonVariants({ variant: primaryButtonVariant, size: 'md' })}
-            data-testid="cta-primary-button"
-          >
-            {primaryButton.text}
-          </Link>
+          <Button asChild size="default" variant={primaryButtonVariant}>
+            <Link 
+              href={primaryButton.link}
+              data-testid="cta-primary-button"
+            >
+              {primaryButton.text}
+            </Link>
+          </Button>
         )}
         
         {secondaryButton && (
-          <Link 
-            href={secondaryButton.link} 
-            className={buttonVariants({ variant: secondaryButtonVariant, size: 'md' })}
-            data-testid="cta-secondary-button"
-          >
-            {secondaryButton.text}
-          </Link>
+          <Button asChild size="default" variant={secondaryButtonVariant}>
+            <Link 
+              href={secondaryButton.link}
+              data-testid="cta-secondary-button"
+            >
+              {secondaryButton.text}
+            </Link>
+          </Button>
         )}
       </div>
     </div>
@@ -180,23 +186,25 @@ export default function CTA({
       
       <div className="flex flex-wrap justify-center gap-4 pt-2" data-testid="cta-buttons">
         {primaryButton && (
-          <Link 
-            href={primaryButton.link} 
-            className={buttonVariants({ variant: primaryButtonVariant, size: 'lg' })}
-            data-testid="cta-primary-button"
-          >
-            {primaryButton.text}
-          </Link>
+          <Button asChild size="lg" variant={primaryButtonVariant}>
+            <Link 
+              href={primaryButton.link}
+              data-testid="cta-primary-button"
+            >
+              {primaryButton.text}
+            </Link>
+          </Button>
         )}
         
         {secondaryButton && (
-          <Link 
-            href={secondaryButton.link} 
-            className={buttonVariants({ variant: secondaryButtonVariant, size: 'lg' })}
-            data-testid="cta-secondary-button"
-          >
-            {secondaryButton.text}
-          </Link>
+          <Button asChild size="lg" variant={secondaryButtonVariant}>
+            <Link 
+              href={secondaryButton.link}
+              data-testid="cta-secondary-button"
+            >
+              {secondaryButton.text}
+            </Link>
+          </Button>
         )}
       </div>
     </div>
@@ -204,7 +212,7 @@ export default function CTA({
   
   return (
     <section 
-      className={`${sectionClasses} ${rounded ? 'rounded-lg' : ''}`}
+      className={cn(sectionClasses, rounded && "rounded-lg")}
       data-testid="cta-section"
     >
       <div className="container mx-auto px-4">

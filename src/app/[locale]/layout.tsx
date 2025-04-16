@@ -1,26 +1,25 @@
-import { ReactNode } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 
-import { Locale, locales } from '@/lib/i18n';
+import { locales } from '@/lib/i18n';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 import '../globals.css';
 
-interface RootLayoutProps {
-  children: ReactNode;
-  params: { locale: Locale };
-}
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+/**
+ * Root layout component for localized pages
+ */
 export default async function LocaleLayout({
   children,
-  params: { locale }
-}: RootLayoutProps) {
+  params,
+}) {
+  const { locale } = params;
+  
   // Validate that the locale is supported
   if (!locales.includes(locale)) {
     notFound();

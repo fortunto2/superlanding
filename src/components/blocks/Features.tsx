@@ -1,6 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/card';
+import { cn } from '@/lib/utils';
 
 // Define features section variants using class-variance-authority
 const featuresVariants = cva(
@@ -74,8 +76,8 @@ export type FeaturesProps = VariantProps<typeof featuresVariants> & {
   features: FeatureItem[];
   columns?: 2 | 3 | 4;
   className?: string;
-  cardVariant?: VariantProps<typeof featureCardVariants>['variant'];
-  iconPosition?: VariantProps<typeof featureCardVariants>['iconPosition'];
+  cardClassName?: string;
+  iconPosition?: 'top' | 'left' | 'hidden';
 };
 
 export default function Features({
@@ -88,7 +90,7 @@ export default function Features({
   background,
   columns = 3,
   className,
-  cardVariant = 'default',
+  cardClassName,
   iconPosition = 'top',
 }: FeaturesProps) {
   const sectionClasses = featuresVariants({ layout, align, background, className });
@@ -107,7 +109,7 @@ export default function Features({
         <FeatureCard
           key={index}
           feature={feature}
-          variant={cardVariant}
+          className={cardClassName}
           iconPosition="left"
         />
       ))}
@@ -156,7 +158,7 @@ export default function Features({
         <FeatureCard
           key={index}
           feature={feature}
-          variant={cardVariant}
+          className={cardClassName}
           iconPosition={iconPosition}
         />
       ))}
@@ -206,31 +208,65 @@ export default function Features({
 
 type FeatureCardProps = {
   feature: FeatureItem;
-  variant?: VariantProps<typeof featureCardVariants>['variant'];
-  iconPosition?: VariantProps<typeof featureCardVariants>['iconPosition'];
+  className?: string;
+  iconPosition?: 'top' | 'left' | 'hidden';
 };
 
-function FeatureCard({ feature, variant = 'default', iconPosition = 'top' }: FeatureCardProps) {
-  const cardClasses = featureCardVariants({ variant, iconPosition });
+function FeatureCard({ feature, className, iconPosition = 'top' }: FeatureCardProps) {
+  const isLeftIcon = iconPosition === 'left';
   
   return (
-    <div className={cardClasses} data-testid="feature-card">
-      {feature.icon && iconPosition !== 'hidden' && (
-        <div className={`${iconPosition === 'top' ? 'mb-4' : 'min-w-12'} text-blue-600`}>
-          <Image
-            src={feature.icon}
-            alt=""
-            width={48}
-            height={48}
-            className="object-contain"
-          />
+    <Card className={cn("h-full transition-all duration-200 hover:shadow-md", className)} data-testid="feature-card">
+      {isLeftIcon ? (
+        <div className="flex flex-row items-start gap-4 p-6">
+          {feature.icon && iconPosition === 'left' && (
+            <div className="min-w-12 text-blue-600 flex-shrink-0">
+              <Image
+                src={feature.icon}
+                alt=""
+                width={48}
+                height={48}
+                className="object-contain"
+              />
+            </div>
+          )}
+          
+          <div className="flex-1">
+            <CardTitle data-testid="feature-title">{feature.title}</CardTitle>
+            <CardDescription className="mt-2" data-testid="feature-description">{feature.description}</CardDescription>
+          </div>
         </div>
+      ) : (
+        <>
+          <CardHeader>
+            {feature.icon && iconPosition === 'top' && (
+              <div className="w-12 h-12 mb-2 text-blue-600 mx-auto">
+                <Image
+                  src={feature.icon}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                />
+              </div>
+            )}
+            <CardTitle data-testid="feature-title">{feature.title}</CardTitle>
+            <CardDescription data-testid="feature-description">{feature.description}</CardDescription>
+          </CardHeader>
+          {feature.image && (
+            <CardContent className="px-6 pb-6 pt-0">
+              <div className="relative w-full h-40 rounded-md overflow-hidden">
+                <Image
+                  src={feature.image.src}
+                  alt={feature.image.alt || ""}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </CardContent>
+          )}
+        </>
       )}
-      
-      <div>
-        <h3 className="text-xl font-bold mb-2" data-testid="feature-title">{feature.title}</h3>
-        <p className="text-gray-600 dark:text-gray-300" data-testid="feature-description">{feature.description}</p>
-      </div>
-    </div>
+    </Card>
   );
 } 

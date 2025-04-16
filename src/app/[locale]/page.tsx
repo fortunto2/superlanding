@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 // import { Locale } from '@/lib/i18n';
 

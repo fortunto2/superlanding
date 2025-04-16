@@ -5,6 +5,8 @@ import Testimonials from "@/components/blocks/Testimonials";
 import CTA from "@/components/blocks/CTA";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function Home() {
   // В будущем это будет получено из Strapi API
@@ -187,19 +189,24 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header locale={locale} />
-      
-      <main className="flex-grow">
-        <Hero {...heroData} />
-        <Features {...featuresData} />
-        <Features {...useCasesData} />
-        <Features {...superFeaturesData} />
-        <Testimonials {...testimonialsData} />
-        <CTA {...ctaData} />
-      </main>
-      
-      <Footer />
-    </div>
+    <ThemeProvider
+      defaultTheme="light"
+      storageKey="superduperai-theme"
+    >
+      <div className="flex flex-col min-h-screen">
+        <Header locale={locale} />
+        
+        <main className="flex-grow">
+          <Hero {...heroData} />
+          <Features {...featuresData} />
+          <Features {...useCasesData} />
+          <Features {...superFeaturesData} />
+          <Testimonials {...testimonialsData} />
+          <CTA {...ctaData} />
+        </main>
+        
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }

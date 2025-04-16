@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { NextIntlClientProvider } from 'next-intl';
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,12 +23,36 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Используем английский как default
+  const locale = 'en';
+  
+  // Загружаем сообщения для en локали напрямую
+  const messages = {
+    "Navigation": {
+      "home": "Home",
+      "blog": "Blog",
+      "pricing": "Pricing",
+      "login": "Log In",
+      "signup": "Sign Up"
+    },
+    "Footer": {
+      "copyright": "© 2023 SuperDuperAI. All rights reserved.",
+      "links": {
+        "privacy": "Privacy Policy", 
+        "terms": "Terms of Service",
+        "contact": "Contact Us"
+      }
+    }
+  };
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

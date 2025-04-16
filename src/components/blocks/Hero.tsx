@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
 
 // Define hero variants using class-variance-authority
 const heroVariants = cva(
@@ -27,30 +29,6 @@ const heroVariants = cva(
       size: 'medium',
       align: 'center',
       contrast: 'light',
-    },
-  }
-);
-
-// Button variant styles
-const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-600',
-        secondary: 'bg-white text-blue-600 hover:bg-gray-100 focus-visible:ring-white',
-        outline: 'border border-blue-600 text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-600',
-        ghost: 'text-blue-600 hover:bg-blue-50 focus-visible:ring-blue-600',
-      },
-      size: {
-        sm: 'h-9 px-4 text-sm',
-        md: 'h-10 px-6 text-base',
-        lg: 'h-12 px-8 text-lg',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-      size: 'md',
     },
   }
 );
@@ -154,23 +132,25 @@ export default function Hero({
             {(primaryCta || secondaryCta) && (
               <div className="flex flex-wrap gap-4 pt-2" data-testid="hero-cta-container">
                 {primaryCta && (
-                  <Link 
-                    href={primaryCta.link} 
-                    className={buttonVariants({ variant: 'primary', size: 'lg' })}
-                    data-testid="hero-primary-cta"
-                  >
-                    {primaryCta.text}
-                  </Link>
+                  <Button asChild size="lg">
+                    <Link 
+                      href={primaryCta.link}
+                      data-testid="hero-primary-cta"
+                    >
+                      {primaryCta.text}
+                    </Link>
+                  </Button>
                 )}
                 
                 {secondaryCta && (
-                  <Link 
-                    href={secondaryCta.link} 
-                    className={buttonVariants({ variant: 'outline', size: 'lg' })}
-                    data-testid="hero-secondary-cta"
-                  >
-                    {secondaryCta.text}
-                  </Link>
+                  <Button asChild variant="outline" size="lg">
+                    <Link 
+                      href={secondaryCta.link}
+                      data-testid="hero-secondary-cta"
+                    >
+                      {secondaryCta.text}
+                    </Link>
+                  </Button>
                 )}
               </div>
             )}
