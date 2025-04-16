@@ -1,0 +1,43 @@
+{
+    "Index": {
+        "title": "SuperDuperAI - AI-powered creation tools",
+        "description": "Create stunning videos, avatars, and content with SuperDuperAI",
+        "hero": {
+            "title": "Unlock your creativity with AI",
+            "subtitle": "SuperDuperAI helps you create professional-quality content in minutes",
+            "cta": "Get Started"
+        },
+        "features": {
+            "title": "Features",
+            "items": [
+                {
+                    "title": "AI Video Generation",
+                    "description": "Create professional videos with just a text prompt"
+                },
+                {
+                    "title": "Custom Avatars",
+                    "description": "Generate personalized avatars for your brand or personal use"
+                },
+                {
+                    "title": "Content Creation",
+                    "description": "Produce amazing content for social media and marketing"
+                }
+            ]
+        }
+    },
+    "Navigation": {
+        "home": "Home",
+        "blog": "Blog",
+        "pricing": "Pricing",
+        "login": "Log In",
+        "signup": "Sign Up"
+    },
+    "Footer": {
+        "copyright": "© 2023 SuperDuperAI. All rights reserved.",
+        "links": {
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
+            "contact": "Contact Us"
+        }
+    }
+}
